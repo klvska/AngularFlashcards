@@ -1,0 +1,32 @@
+<div class="container">
+  <h2>Flashcard Sets</h2>
+  <ul>
+    <li *ngFor="let set of sets">
+      <strong>{{ set.name }}</strong>
+      <ul>
+        <li *ngFor="let flashcard of set.flashcards">
+          <strong>{{ flashcard.question }}</strong>
+          <p>{{ flashcard.answer }}</p>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <h3>Add Set</h3>
+  <form (ngSubmit)="addSet()">
+    <label for="setName">Set Name:</label>
+    <input id="setName" [(ngModel)]="newSet.name" name="setName" required>
+    <button type="submit">Add Set</button>
+  </form>
+  <h3>Add Flashcard</h3>
+  <form (ngSubmit)="addFlashcard()">
+    <label for="set">Set:</label>
+    <select id="set" [(ngModel)]="selectedSetId" name="set" required>
+      <option *ngFor="let set of sets" [value]="set.id">{{ set.name }}</option>
+    </select>
+    <label for="question">Question:</label>
+    <input id="question" [(ngModel)]="newFlashcard.question" name="question" required>
+    <label for="answer">Answer:</label>
+    <input id="answer" [(ngModel)]="newFlashcard.answer" name="answer" required>
+    <button type="submit">Add Flashcard</button>
+  </form>
+</div>

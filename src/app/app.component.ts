@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {FlashcardComponent} from './flashcard/flashcard.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  template: '<app-flashcard></app-flashcard>',
+  imports: [
+    FlashcardComponent
+  ],
+  standalone: true
 })
-export class AppComponent {
-  title = 'AngularQuizlet';
-}
+export class AppComponent {}
