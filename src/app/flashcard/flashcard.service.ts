@@ -6,23 +6,39 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class FlashcardService {
-  private apiUrl = 'http://localhost:3000';
+  private baseUrl = 'http://localhost:3000';
 
   constructor(private http: HttpClient) {}
 
-  addSet(name: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/sets`, { name });
-  }
-
   getSets(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/sets`);
+    return this.http.get<any[]>(`${this.baseUrl}/sets`);
   }
 
   getFlashcards(setId: number | null): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/flashcards?setId=${setId}`);
+    return this.http.get<any[]>(`${this.baseUrl}/sets/${setId}/flashcards`);
+  }
+
+  addSet(name: string): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/sets`, { name });
   }
 
   addFlashcard(question: string, answer: string, setId: number): Observable<any> {
-    return this.http.post(`${this.apiUrl}/flashcards`, { question, answer, setId });
+    return this.http.post<any>(`${this.baseUrl}/flashcards`, { question, answer, setId });
+  }
+
+  updateSet(id: number, name: string): Observable<any> {
+    return this.http.put<any>(`${this.baseUrl}/sets/${id}`, { name });
+  }
+
+  deleteSet(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}/sets/${id}`);
+  }
+
+  updateFlashcard(id: number, question: string, answer: string): Observable<any> {
+    return this.http.put<any>(`${this.baseUrl}/flashcards/${id}`, { question, answer });
+  }
+
+  deleteFlashcard(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}/flashcards/${id}`);
   }
 }

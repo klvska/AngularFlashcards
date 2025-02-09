@@ -1,0 +1,22 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Set {
+  id         Int         @id @default(autoincrement())
+  name       String
+  flashcards Flashcard[]
+}
+
+model Flashcard {
+  id       Int    @id @default(autoincrement())
+  question String
+  answer   String
+  setId    Int
+  set      Set    @relation(fields: [setId], references: [id])
+}

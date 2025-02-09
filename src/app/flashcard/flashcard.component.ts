@@ -30,6 +30,7 @@ export class FlashcardComponent implements OnInit {
 
   loadSets() {
     this.flashcardService.getSets().subscribe(sets => {
+      console.log('Sets fetched:', sets);
       this.sets = sets.map(set => ({
         ...set,
         flashcards: set.flashcards || []
@@ -39,6 +40,7 @@ export class FlashcardComponent implements OnInit {
 
   loadFlashcards(setId: number | null) {
     this.flashcardService.getFlashcards(setId).subscribe((flashcards: Flashcard[]) => {
+      console.log('Flashcards fetched for set', setId, ':', flashcards);
       const set = this.sets.find(s => s.id === setId);
       if (set) {
         set.flashcards = flashcards.sort((a: Flashcard, b: Flashcard) => a.id - b.id);
@@ -48,7 +50,8 @@ export class FlashcardComponent implements OnInit {
 
   addSet() {
     this.flashcardService.addSet(this.newSet.name).subscribe(newSet => {
-      this.loadSets();
+      console.log('New set added:', newSet);
+      this.sets.push({ ...newSet, flashcards: [] });
       this.newSet.name = '';
     });
   }
@@ -56,10 +59,70 @@ export class FlashcardComponent implements OnInit {
   addFlashcard() {
     if (this.selectedSetId !== null) {
       this.flashcardService.addFlashcard(this.newFlashcard.question, this.newFlashcard.answer, this.selectedSetId).subscribe((newFlashcard: Flashcard) => {
-        this.loadFlashcards(this.selectedSetId);
+        console.log('New flashcard added:', newFlashcard);
+        const set = this.sets.find(s => s.id === this.selectedSetId);
+        if (set) {
+          set.flashcards.push(newFlashcard);
+          window.location.reload();
+        }
         this.newFlashcard = { question: '', answer: '' };
+      });
+    }
+  }
+
+  updateSet(setId: number, currentName: string) {
+    const newName = prompt('Enter new set name:', currentName);
+    if (newName !== null) {
+      this.flashcardService.updateSet(setId, newName).subscribe(() => {
+        console.log('Set updated:', newName);
+        const set = this.sets.find(s => s.id === setId);
+        if (set) {
+          set.name = newName;
+        }
+        alert(`Set updated: ${newName}`);
+      });
+    }
+  }
+
+  updateFlashcard(flashcardId: number, currentQuestion: string, currentAnswer: string) {
+    const newQuestion = prompt('Enter new question:', currentQuestion);
+    const newAnswer = prompt('Enter new answer:', currentAnswer);
+    if (newQuestion !== null && newAnswer !== null) {
+      this.flashcardService.updateFlashcard(flashcardId, newQuestion, newAnswer).subscribe(() => {
+        console.log('Flashcard updated:', newQuestion, newAnswer);
+        const set = this.sets.find(s => s.id === this.selectedSetId);
+        if (set) {
+          const flashcard = set.flashcards.find((f: { id: number; }) => f.id === flashcardId);
+          if (flashcard) {
+            flashcard.question = newQuestion;
+            flashcard.answer = newAnswer;
+          }
+        }
+        alert(`Flashcard updated: ${newQuestion} - ${newAnswer}`);
         window.location.reload();
       });
     }
+  }
+
+  deleteSet(id: number) {
+    this.flashcardService.deleteSet(id).subscribe({
+      next: () => {
+        console.log('Set deleted:', id);
+        this.sets = this.sets.filter(set => set.id !== id);
+      },
+      error: (error) => {
+        console.error('Error deleting set:', error);
+      }
+    });
+  }
+
+  deleteFlashcard(id: number) {
+    this.flashcardService.deleteFlashcard(id).subscribe(() => {
+      console.log('Flashcard deleted:', id);
+      const set = this.sets.find(s => s.id === this.selectedSetId);
+      if (set) {
+        set.flashcards = set.flashcards.filter((f: { id: number; }) => f.id !== id);
+      }
+    });
   }
 }
