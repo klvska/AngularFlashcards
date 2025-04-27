@@ -1,0 +1,61 @@
+/* Stylizacja kontenera dla zestawów */
+div {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Nagłówki zestawów */
+h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* Stylizacja przycisków */
+button {
+  margin: 5px 5px 5px 0;
+  padding: 8px 12px;
+  font-size: 14px;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* Przyciski akcji */
+button:first-of-type {
+  background-color: #dc3545; /* Czerwony - Usuń */
+}
+
+button:last-of-type {
+  background-color: #007bff; /* Niebieski - Zaktualizuj */
+}
+
+/* Stylizacja pola tekstowego */
+input {
+  width: calc(100% - 20px);
+  padding: 8px;
+  margin: 5px 0 10px 0;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Dodanie odstępów między elementami */
+div + div {
+  margin-top: 20px;
+}

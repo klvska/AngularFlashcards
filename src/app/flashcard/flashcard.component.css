@@ -1,81 +1,77 @@
-/* flashcard.component.css */
-.container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f9;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
-h2, h3 {
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
   text-align: center;
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
+h2 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 20px;
 }
 
-li {
-  background: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  margin-bottom: 10px;
-  padding: 10px;
-}
-
-li ul {
-  margin-top: 10px;
-}
-
-.sets-item {
+.sets-container {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
 }
 
-button {
-  margin-right: 10px;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-  background-color: #007bff;
-  color: white;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
-
-form {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 10px;
-  align-items: center;
-  background: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+.set-card {
+  background: linear-gradient(145deg, #ffffff, #e6e6e6);
+  border-radius: 15px;
   padding: 20px;
+  width: 280px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1), -5px -5px 15px rgba(255, 255, 255, 0.7);
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-align: left;
 }
 
-form label {
-  text-align: right;
+.set-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2), -10px -10px 20px rgba(255, 255, 255, 0.8);
 }
 
-form input, form select {
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
+.set-card h3 {
+  font-size: 1.5rem;
+  color: #007bff;
+  margin-bottom: 10px;
 }
 
-form button {
-  grid-column: 2 / 3;
-  justify-self: start;
-  background-color: #28a745;
-  color: white;
+.set-card p {
+  font-size: 0.9rem;
+  color: #555;
+  margin: 5px 0;
 }
 
-form button:hover {
-  background-color: #218838;
+.set-card button {
+  display: block;
+  width: 100%;
+  padding: 10px 0;
+  margin-top: 15px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.set-card button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
 }

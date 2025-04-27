@@ -1,44 +1,13 @@
 <div class="container">
-  <div>
-    <h2>Flashcard Sets</h2>
-    <ul>
-      <li  *ngFor="let set of sets">
-        <div class="sets-item">
-          <strong>{{ set.name }}</strong>
-          <div>
-            <button (click)="updateSet(set.id, set.name)">Edit</button>
-            <button (click)="deleteSet(set.id)">Delete</button>
-          </div>
-        </div>
-        <ul>
-          <li *ngFor="let flashcard of set.flashcards">
-            <strong>{{ flashcard.question }}</strong>
-            <p>{{ flashcard.answer }}</p>
-            <button (click)="updateFlashcard(flashcard.id, flashcard.question, flashcard.answer)">Edit</button>
-            <button (click)="deleteFlashcard(flashcard.id)">Delete</button>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </div>
-  <div>
-    <h2>Add Set</h2>
-    <form (ngSubmit)="addSet()">
-      <label for="setName">Set Name:</label>
-      <input id="setName" [(ngModel)]="newSet.name" name="setName" required>
-      <button type="submit">Add Set</button>
-    </form>
-    <h3>Add Flashcard</h3>
-    <form (ngSubmit)="addFlashcard()">
-      <label for="set">Set:</label>
-      <select id="set" [(ngModel)]="selectedSetId" name="set" required>
-        <option *ngFor="let set of sets" [value]="set.id">{{ set.name }}</option>
-      </select>
-      <label for="question">Question:</label>
-      <input id="question" [(ngModel)]="newFlashcard.question" name="question" required>
-      <label for="answer">Answer:</label>
-      <input id="answer" [(ngModel)]="newFlashcard.answer" name="answer" required>
-      <button type="submit">Add Flashcard</button>
-    </form>
+  <h2>Flashcard Sets</h2>
+  <div class="sets-container">
+    <div class="set-card" *ngFor="let set of sets">
+      <h3>{{ set.name }}</h3>
+      <p><strong>User ID:</strong> {{ set.userId }}</p>
+      <p><strong>User Email:</strong> {{ set.user?.email || 'Unknown' }}</p>
+      <p><strong>Last Modified:</strong> {{ set.updatedAt | date:'short' }}</p>
+      <p><strong>Flashcards:</strong> {{ set.flashcards.length }}</p>
+      <button (click)="navigateToSet(set.id)">Ucz się</button>
+    </div>
   </div>
 </div>

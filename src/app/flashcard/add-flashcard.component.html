@@ -1,0 +1,23 @@
+<div class="form-container">
+  <h2>Dodaj fiszki</h2>
+  <form (ngSubmit)="addFlashcards()" #flashcardForm="ngForm">
+    <label for="set">Wybierz zestaw:</label>
+    <select id="set" [(ngModel)]="selectedSetId" name="set" required>
+      <option *ngFor="let set of sets" [value]="set.id">{{ set.name }}</option>
+    </select>
+
+    <div class="flashcard-group" *ngFor="let flashcard of flashcards; let i = index">
+      <h3>Fiszka {{ i + 1 }}</h3>
+      <label for="question-{{ i }}">Pytanie:</label>
+      <input id="question-{{ i }}" [(ngModel)]="flashcard.question" name="question-{{ i }}" required />
+
+      <label for="answer-{{ i }}">Odpowiedź:</label>
+      <input id="answer-{{ i }}" [(ngModel)]="flashcard.answer" name="answer-{{ i }}" required />
+
+      <button type="button" class="btn-remove" (click)="removeFlashcard(i)">Usuń</button>
+    </div>
+
+    <button type="button" class="btn-add" (click)="addNewFlashcard()">Dodaj kolejną fiszkę</button>
+    <button type="submit" [disabled]="!flashcardForm.form.valid">Zapisz fiszki</button>
+  </form>
+</div>

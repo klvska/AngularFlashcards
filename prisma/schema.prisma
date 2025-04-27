@@ -7,16 +7,33 @@ datasource db {
   url      = "file:./dev.db"
 }
 
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String   @default("") // Dodano wartość domyślną
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  sets      Set[]
+}
+
 model Set {
   id         Int         @id @default(autoincrement())
   name       String
+  userId     Int
+  user       User        @relation(fields: [userId], references: [id])
   flashcards Flashcard[]
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
 }
 
 model Flashcard {
-  id       Int    @id @default(autoincrement())
-  question String
-  answer   String
-  setId    Int
-  set      Set    @relation(fields: [setId], references: [id])
+  id        Int      @id @default(autoincrement())
+  question  String
+  answer    String
+  setId     Int
+  set       Set      @relation(fields: [setId], references: [id])
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @default(now()) // Dodano wartość domyślną
 }

@@ -1,0 +1,15 @@
+<div class="form-container">
+  <h2>Register</h2>
+  <form (ngSubmit)="register()" #registerForm="ngForm">
+    <label for="name">Name:</label>
+    <input id="name" [(ngModel)]="name" name="name" required />
+
+    <label for="email">Email:</label>
+    <input id="email" [(ngModel)]="email" name="email" required />
+
+    <label for="password">Password:</label>
+    <input id="password" type="password" [(ngModel)]="password" name="password" required />
+
+    <button type="submit" [disabled]="!registerForm.form.valid">Register</button>
+  </form>
+</div>

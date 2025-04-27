@@ -1,2 +1,10 @@
-<!-- src/app/app.component.html -->
-<app-flashcard></app-flashcard>
+<nav>
+  <a routerLink="/">Flashcards</a>
+  <a *ngIf="!isLoggedIn" routerLink="/login">Login</a>
+  <a *ngIf="!isLoggedIn" routerLink="/register">Register</a>
+  <a *ngIf="isLoggedIn" routerLink="/add-set">Add Set</a>
+  <a *ngIf="isLoggedIn" routerLink="/add-flashcard">Add Flashcard</a>
+  <a *ngIf="isLoggedIn" routerLink="/user-profile">User Profile</a>
+  <a *ngIf="isLoggedIn" (click)="logout()">Logout</a>
+</nav>
+<router-outlet></router-outlet>

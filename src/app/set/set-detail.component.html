@@ -1,0 +1,31 @@
+<div class="set-detail-container">
+  <h2>{{ set?.name }}</h2>
+
+  <!-- Duży div na środku -->
+  <div class="flashcard-large" *ngIf="flashcards.length > 0">
+    <div class="flashcard-inner" [class.flipped]="flashcards[currentIndex]?.flipped" (click)="toggleFlashcard()">
+      <div class="flashcard-front">
+        <p>{{ flashcards[currentIndex]?.question }}</p>
+      </div>
+      <div class="flashcard-back">
+        <p>{{ flashcards[currentIndex]?.answer }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Przyciski nawigacyjne -->
+  <div class="navigation-buttons">
+    <button class="nav-button" (click)="prevFlashcard()" [disabled]="currentIndex === 0">←</button>
+    <div class="current-idx">
+      {{ currentIndex + 1 }} / {{ flashcards.length }}
+    </div>
+    <button class="nav-button" (click)="nextFlashcard()" [disabled]="currentIndex === flashcards.length - 1">→</button>
+  </div>
+
+  <!-- Lista pozostałych fiszek -->
+  <div class="flashcard-list">
+    <div class="flashcard-small" *ngFor="let flashcard of flashcards; let i = index" (click)="selectFlashcard(i)">
+      <p>{{ flashcard.question }}</p>
+    </div>
+  </div>
+</div>

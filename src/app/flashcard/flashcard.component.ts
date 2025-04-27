@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FlashcardService } from './flashcard.service';
+import { Router } from '@angular/router';
 
 interface Flashcard {
   id: number;
@@ -17,14 +18,24 @@ interface Flashcard {
   styleUrls: ['./flashcard.component.css']
 })
 export class FlashcardComponent implements OnInit {
+  isLoggedIn = false;
   sets: any[] = [];
   selectedSetId: number | null = null;
   newSet = { name: '' };
   newFlashcard = { question: '', answer: '' };
 
-  constructor(private flashcardService: FlashcardService) {}
+  constructor(private flashcardService: FlashcardService, private cdr: ChangeDetectorRef, private router: Router) {}
+
+  refreshLoginState() {
+    this.isLoggedIn = !!localStorage.getItem('token'); // Sprawdzenie tokena
+  }
+
+  navigateToSet(setId: number) {
+    this.router.navigate([`/set/${setId}`]);
+  }
 
   ngOnInit() {
+    this.refreshLoginState();
     this.loadSets();
   }
 
@@ -60,11 +71,16 @@ export class FlashcardComponent implements OnInit {
     if (this.selectedSetId !== null) {
       this.flashcardService.addFlashcard(this.newFlashcard.question, this.newFlashcard.answer, this.selectedSetId).subscribe((newFlashcard: Flashcard) => {
         console.log('New flashcard added:', newFlashcard);
-        const set = this.sets.find(s => s.id === this.selectedSetId);
-        if (set) {
-          set.flashcards.push(newFlashcard);
-          window.location.reload();
-        }
+        const updatedSets = this.sets.map(set => {
+          if (set.id === this.selectedSetId) {
+            return {
+              ...set,
+              flashcards: [...set.flashcards, newFlashcard]
+            };
+          }
+          return set;
+        });
+        this.sets = [...updatedSets]; // Przypisanie nowej referencji
         this.newFlashcard = { question: '', answer: '' };
       });
     }

@@ -1,0 +1,6 @@
+<div *ngFor="let set of userSets">
+  <h3>{{ set.name }}</h3>
+  <button (click)="deleteSet(set.id)">Usuń</button>
+  <input [(ngModel)]="set.newName" placeholder="Nowa nazwa">
+  <button (click)="updateSet(set.id, set.newName)">Zaktualizuj</button>
+</div>

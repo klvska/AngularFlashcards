@@ -20,10 +20,12 @@
     "@angular/platform-browser": "^19.1.0",
     "@angular/platform-browser-dynamic": "^19.1.0",
     "@angular/router": "^19.1.0",
-    "@prisma/client": "^6.3.1",
+    "@prisma/client": "^6.6.0",
+    "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "curl": "^0.1.4",
     "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
@@ -39,7 +41,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "prisma": "^6.3.1",
+    "prisma": "^6.6.0",
     "typescript": "~5.7.2"
   },
   "description": "This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.5.",
