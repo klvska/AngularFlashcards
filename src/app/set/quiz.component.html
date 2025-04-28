@@ -1,0 +1,50 @@
+<div class="quiz-dark-bg">
+  <div class="quiz-header-row">
+    <h1>Quiz: {{ set?.name }}</h1>
+    <div class="quiz-header-info">
+      <span class="quiz-header-time">⏱ {{ timeSpent }}s</span>
+      <span class="quiz-header-progress"
+        >{{ currentQuestionIndex + 1 }}/{{ quizQuestions.length }}</span
+      >
+    </div>
+  </div>
+
+  <div class="quiz-card-center">
+    <div class="quiz-card">
+      <div class="quiz-card-label">
+        Definicja <span class="quiz-card-sound">🔊</span>
+      </div>
+      <div class="quiz-card-question">
+        {{ quizQuestions[currentQuestionIndex]?.question }}
+      </div>
+      <div class="quiz-card-answer-section" *ngIf="!quizCompleted">
+        <div class="quiz-card-answer-section-label">Twoja odpowiedź</div>
+        <input
+          class="quiz-input"
+          type="text"
+          [(ngModel)]="userAnswers[currentQuestionIndex]"
+          (keyup.enter)="submitAnswer(userAnswers[currentQuestionIndex])"
+          placeholder="Wpisz odpowiedź w języku (polski)"
+          autofocus
+        />
+        <button
+          class="quiz-next-btn"
+          (click)="submitAnswer(userAnswers[currentQuestionIndex])"
+        >
+          Następne
+        </button>
+      </div>
+      <div class="quiz-card-feedback" *ngIf="quizCompleted">
+        <h2>Quiz zakończony!</h2>
+        <div class="quiz-score">
+          Twój wynik: {{ score }}% ({{
+            Math.round((score / 100) * quizQuestions.length)
+          }}/{{ quizQuestions.length }} poprawnych odpowiedzi)
+        </div>
+        <button class="quiz-restart-btn" (click)="restartQuiz()">
+          Rozwiąż ponownie
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import {NgIf} from '@angular/common';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   standalone: true,
   imports: [RouterModule, NgIf],
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
   isLoggedIn = false;

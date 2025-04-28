@@ -1,27 +1,63 @@
 <div class="add-set-container" *ngIf="!isSetAdded">
-  <h2>Dodaj nowy zestaw</h2>
-  <form (ngSubmit)="addSet()" class="form-container">
-    <div class="form-group">
-      <label for="setName">Nazwa zestawu:</label>
-      <input id="setName" [(ngModel)]="newSet.name" name="setName" required class="form-control">
+  <div class="add-set-header-row">
+    <h2>Stwórz nowy zestaw fiszek</h2>
+    <div class="add-set-btns">
+      <button type="button" class="btn btn-outline">Stwórz</button>
+      <button type="submit" class="btn btn-primary">Stwórz i ćwicz</button>
     </div>
-    <button type="submit" class="btn btn-primary">Dodaj zestaw</button>
+  </div>
+  <form (ngSubmit)="addSet()" class="form-container">
+    <input
+      id="setName"
+      [(ngModel)]="newSet.name"
+      name="setName"
+      required
+      class="form-control add-set-title"
+      placeholder="Wpisz tytuł, na przykład 'Biologia – Rozdział 22: Ewolucja'"
+    />
   </form>
 </div>
 
 <div class="add-set-container" *ngIf="isSetAdded">
   <h2>Dodaj fiszki</h2>
-  <div *ngFor="let flashcard of newFlashcards; let i = index" class="flashcard-container">
+  <div
+    *ngFor="let flashcard of newFlashcards; let i = index"
+    class="flashcard-container"
+  >
     <div class="form-group">
       <label>Pytanie:</label>
-      <input [(ngModel)]="flashcard.question" name="question{{i}}" required class="form-control">
+      <input
+        [(ngModel)]="flashcard.question"
+        name="question{{ i }}"
+        required
+        class="form-control"
+      />
     </div>
     <div class="form-group">
       <label>Odpowiedź:</label>
-      <input [(ngModel)]="flashcard.answer" name="answer{{i}}" required class="form-control">
+      <input
+        [(ngModel)]="flashcard.answer"
+        name="answer{{ i }}"
+        required
+        class="form-control"
+      />
     </div>
-    <button type="button" (click)="removeFlashcardField(i)" class="btn btn-danger">Usuń</button>
+    <button
+      type="button"
+      (click)="removeFlashcardField(i)"
+      class="btn btn-danger"
+    >
+      Usuń
+    </button>
   </div>
-  <button type="button" (click)="addNewFlashcardField()" class="btn btn-secondary">Dodaj kolejne pole</button>
-  <button type="button" (click)="addFlashcard()" class="btn btn-success">Zapisz fiszki</button>
+  <button
+    type="button"
+    (click)="addNewFlashcardField()"
+    class="btn btn-secondary"
+  >
+    Dodaj kolejne pole
+  </button>
+  <button type="button" (click)="addFlashcard()" class="btn btn-success">
+    Zapisz fiszki
+  </button>
 </div>

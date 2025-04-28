@@ -1,6 +1,51 @@
-<div *ngFor="let set of userSets">
-  <h3>{{ set.name }}</h3>
-  <button (click)="deleteSet(set.id)">Usuń</button>
-  <input [(ngModel)]="set.newName" placeholder="Nowa nazwa">
-  <button (click)="updateSet(set.id, set.newName)">Zaktualizuj</button>
+<div class="profile-dark-bg">
+  <div class="profile-header">
+    <h1>Twój profil</h1>
+    <div class="profile-username">Użytkownik</div>
+  </div>
+
+  <div class="profile-stats-card" *ngIf="stats">
+    <div class="profile-stats-title">Statystyki</div>
+    <div class="profile-stats-grid">
+      <div class="profile-stat">
+        <div class="profile-stat-icon">📚</div>
+        <div class="profile-stat-value">{{ stats.totalSets || 0 }}</div>
+        <div class="profile-stat-label">Zestawy</div>
+      </div>
+      <div class="profile-stat">
+        <div class="profile-stat-icon">🗂️</div>
+        <div class="profile-stat-value">{{ stats.totalFlashcards || 0 }}</div>
+        <div class="profile-stat-label">Fiszki</div>
+      </div>
+      <div class="profile-stat">
+        <div class="profile-stat-icon">📝</div>
+        <div class="profile-stat-value">{{ stats.totalQuizzes || 0 }}</div>
+        <div class="profile-stat-label">Quizy</div>
+      </div>
+      <div class="profile-stat">
+        <div class="profile-stat-icon">⭐</div>
+        <div class="profile-stat-value">{{ stats.averageScore || 0 }}%</div>
+        <div class="profile-stat-label">Śr. wynik</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="profile-sets-title">Twoje zestawy</div>
+  <div class="profile-sets-list">
+    <div class="profile-set-card" *ngFor="let set of userSets">
+      <div class="profile-set-name">{{ set.name }}</div>
+      <div class="profile-set-actions">
+        <input [(ngModel)]="set.newName" placeholder="Nowa nazwa" />
+        <button
+          class="profile-btn profile-btn-blue"
+          (click)="updateSet(set.id, set.newName)"
+        >
+          Zmień nazwę
+        </button>
+        <button class="profile-btn profile-btn-red" (click)="deleteSet(set.id)">
+          Usuń
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

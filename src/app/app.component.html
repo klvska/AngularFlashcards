@@ -1,10 +1,38 @@
-<nav>
-  <a routerLink="/">Flashcards</a>
-  <a *ngIf="!isLoggedIn" routerLink="/login">Login</a>
-  <a *ngIf="!isLoggedIn" routerLink="/register">Register</a>
-  <a *ngIf="isLoggedIn" routerLink="/add-set">Add Set</a>
-  <a *ngIf="isLoggedIn" routerLink="/add-flashcard">Add Flashcard</a>
-  <a *ngIf="isLoggedIn" routerLink="/user-profile">User Profile</a>
-  <a *ngIf="isLoggedIn" (click)="logout()">Logout</a>
+<nav class="main-navbar">
+  <div class="navbar-left">
+    <span class="navbar-logo">
+      <svg
+        width="38"
+        height="38"
+        viewBox="0 0 38 38"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle cx="19" cy="19" r="19" fill="#23243a" />
+        <circle cx="19" cy="19" r="14" fill="#fff" />
+        <text
+          x="50%"
+          y="56%"
+          text-anchor="middle"
+          fill="#23243a"
+          font-size="18"
+          font-family="Arial, Helvetica, sans-serif"
+          font-weight="bold"
+          dy=".3em"
+        >
+          Q
+        </text>
+      </svg>
+    </span>
+    <a routerLink="/">Flashcards</a>
+  </div>
+  <div class="navbar-right">
+    <a *ngIf="!isLoggedIn" routerLink="/login">Login</a>
+    <a *ngIf="!isLoggedIn" routerLink="/register">Register</a>
+    <a *ngIf="isLoggedIn" routerLink="/add-set">Add Set</a>
+    <a *ngIf="isLoggedIn" routerLink="/add-flashcard">Add Flashcard</a>
+    <a *ngIf="isLoggedIn" routerLink="/user-profile">User Profile</a>
+    <a *ngIf="isLoggedIn" (click)="logout()">Logout</a>
+  </div>
 </nav>
 <router-outlet></router-outlet>

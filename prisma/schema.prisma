@@ -15,6 +15,8 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   sets      Set[]
+  stats     UserStats?
+  quizAttempts QuizAttempt[]
 }
 
 model Set {
@@ -23,17 +25,52 @@ model Set {
   userId     Int
   user       User        @relation(fields: [userId], references: [id])
   flashcards Flashcard[]
+  quizzes    Quiz[]
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
 }
 
 model Flashcard {
-  id        Int      @id @default(autoincrement())
-  question  String
-  answer    String
-  setId     Int
-  set       Set      @relation(fields: [setId], references: [id])
-  createdAt DateTime @default(now())
+  id         Int      @id @default(autoincrement())
+  question   String
+  answer     String
+  difficulty Int      @default(1) // 1-łatwe, 2-średnie, 3-trudne
+  setId      Int
+  set        Set      @relation(fields: [setId], references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now())
+}
 
-  updatedAt DateTime @default(now()) // Dodano wartość domyślną
+model Quiz {
+  id          Int           @id @default(autoincrement())
+  name        String
+  description String?
+  setId       Int
+  set         Set          @relation(fields: [setId], references: [id])
+  attempts    QuizAttempt[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model QuizAttempt {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  quizId    Int
+  quiz      Quiz     @relation(fields: [quizId], references: [id])
+  score     Int
+  timeSpent Int      // czas w sekundach
+  createdAt DateTime @default(now())
+}
+
+model UserStats {
+  id                Int      @id @default(autoincrement())
+  userId            Int      @unique
+  user              User     @relation(fields: [userId], references: [id])
+  totalQuizzes      Int      @default(0)
+  averageScore      Float    @default(0)
+  totalFlashcards   Int      @default(0)
+  masteredFlashcards Int     @default(0)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }

@@ -1,13 +1,29 @@
 <div class="container">
   <h2>Flashcard Sets</h2>
   <div class="sets-container">
-    <div class="set-card" *ngFor="let set of sets">
-      <h3>{{ set.name }}</h3>
-      <p><strong>User ID:</strong> {{ set.userId }}</p>
-      <p><strong>User Email:</strong> {{ set.user?.email || 'Unknown' }}</p>
-      <p><strong>Last Modified:</strong> {{ set.updatedAt | date:'short' }}</p>
-      <p><strong>Flashcards:</strong> {{ set.flashcards.length }}</p>
-      <button (click)="navigateToSet(set.id)">Ucz się</button>
+    <div
+      (click)="navigateToSet(set.id)"
+      class="set-card"
+      *ngFor="let set of sets"
+    >
+      <div class="set-card-header">
+        <span class="set-card-title">{{ set.name }}</span>
+      </div>
+      <div class="set-card-info-row">
+        <span class="set-card-count">{{ set.flashcards.length }} pojęć</span>
+      </div>
+      <div class="set-card-footer">
+        <span class="set-card-user">
+          <img
+            src="https://api.dicebear.com/7.x/bottts/svg?seed={{
+              set.user?.name || 'user'
+            }}"
+            class="set-card-avatar"
+            alt="avatar"
+          />
+          {{ set.user?.name || set.user?.email || "Użytkownik" }}
+        </span>
+      </div>
     </div>
   </div>
 </div>
